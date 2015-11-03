@@ -886,7 +886,7 @@ namespace TagLib {
 		///    the media represented by the current instance.
 		/// </summary>
 		/// <value>
-		///    A <see cref="IPicture[]" /> containing a collection of
+		///    A <see cref="IPicture[]" /> containing a` collection of
 		///    pictures associated with the media represented by the
 		///    current instance or an empty array if none are present.
 		/// </value>
@@ -918,6 +918,18 @@ namespace TagLib {
 			get {return Performers;}
 			set {Performers = value;}
 		}
+
+	    public virtual string Key
+	    {
+	        get
+	        {
+	            return null;
+	        }
+
+	        set
+	        {
+	        }
+	    }
 		
 		/// <summary>
 		///    Gets the same value as <see cref="FirstPerformer" />.
@@ -1208,7 +1220,8 @@ namespace TagLib {
 				IsNullOrLikeEmpty (Copyright) &&
 				IsNullOrLikeEmpty (Album) &&
 				IsNullOrLikeEmpty (Comment) &&
-				IsNullOrLikeEmpty (Genres) &&
+				IsNullOrLikeEmpty (Genres) && 
+                IsNullOrLikeEmpty (Key) &&
 				Year == 0 &&
 				BeatsPerMinute == 0 &&
 				Track == 0 &&
@@ -1345,6 +1358,11 @@ namespace TagLib {
 			
 			if (overwrite || IsNullOrLikeEmpty (target.Copyright))
 				target.Copyright = Copyright;
+
+		    if (overwrite || IsNullOrLikeEmpty(target.Key))
+		    {
+		        target.Key = this.Key;
+		    }
 		}
 		
 		/// <summary>

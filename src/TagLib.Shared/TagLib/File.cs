@@ -419,7 +419,7 @@ namespace TagLib {
 				else if (value == AccessMode.Write)
 					file_stream = file_abstraction.WriteStream;
 				
-				Mode = value;
+				//Mode = value;
 			}
 		}
 		

@@ -24,22 +24,41 @@ namespace TagLib
 {
     public class StreamFileAbstraction : File.IFileAbstraction
     {
+        private readonly Stream _readStream;
+
+        private readonly Stream _writeStream;
+
         public StreamFileAbstraction(string name, Stream readStream, Stream writeStream)
         {
             // TODO: Fix deadlock when setting an actual writable Stream
-            WriteStream = readStream;
-            ReadStream = readStream;
+            this._writeStream = readStream;
+            this._readStream = readStream;
             Name = name;
         }
 
         public string Name { get; private set; }
 
-        public Stream ReadStream { get; private set; }
+        public Stream ReadStream
+        {
+            get
+            {
+                System.Diagnostics.Debug.WriteLine("StreamFileAbstraction.ReadStream");
+                return this._readStream;
+            }
+        }
 
-        public Stream WriteStream { get; private set; }
+        public Stream WriteStream
+        {
+            get
+            {
+                System.Diagnostics.Debug.WriteLine("StreamFileAbstraction.WriteStream");
+                return this._writeStream;
+            }
+        }
 
         public void CloseStream(Stream stream)
         {
+            System.Diagnostics.Debug.WriteLine("StreamFileAbstraction.CloseStream");
             stream.Dispose();
         }
     }

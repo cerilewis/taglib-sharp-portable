@@ -1629,15 +1629,41 @@ namespace TagLib {
 			}
 		}
 
-		/// <summary>
-		///    Gets whether or not the current instance is empty.
-		/// </summary>
-		/// <value>
-		///    <see langword="true" /> if all the child tags are empty.
-		///    Otherwise <see langword="false" />.
-		/// </value>
-		/// <seealso cref="Tag.IsEmpty" />
-		public override bool IsEmpty {
+        public override string Key
+        {
+            get
+            {
+                foreach (Tag tag in tags)
+                {
+                    if (tag == null)
+                        continue;
+
+                    string value = tag.Key;
+
+                    if (value != null)
+                        return value;
+                }
+
+                return null;
+            }
+
+            set
+            {
+                foreach (Tag tag in tags)
+                    if (tag != null)
+                        tag.Key = value;
+            }
+        }
+
+        /// <summary>
+        ///    Gets whether or not the current instance is empty.
+        /// </summary>
+        /// <value>
+        ///    <see langword="true" /> if all the child tags are empty.
+        ///    Otherwise <see langword="false" />.
+        /// </value>
+        /// <seealso cref="Tag.IsEmpty" />
+        public override bool IsEmpty {
 			get {
 				foreach (Tag tag in tags)
 					if (tag.IsEmpty)
